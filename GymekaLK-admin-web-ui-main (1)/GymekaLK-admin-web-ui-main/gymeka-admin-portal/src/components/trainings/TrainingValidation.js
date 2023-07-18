@@ -204,7 +204,7 @@ function TrainingValidation({ isOpen, onClose, onSave }) {
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
       >
-        
+        {/* form control */}
        
         <FormControlLabel value="csd1" control={<Radio />} label="CDS1" />
         <FormControlLabel value="avo" control={<Radio />} label="AVO" />
