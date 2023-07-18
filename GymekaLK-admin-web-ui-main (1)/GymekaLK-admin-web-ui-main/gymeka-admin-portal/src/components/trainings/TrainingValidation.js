@@ -6,7 +6,7 @@ import { FaPlus } from 'react-icons/fa';
 //import CreateAssessmentPopup from './CreateAssessmentPopup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-//import DateTimePicker from 'react-datetime-picker' 
+import DateTimePicker from 'react-datetime-picker' 
 
 function TrainingValidation({ isOpen, onClose, onSave }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -82,9 +82,11 @@ function TrainingValidation({ isOpen, onClose, onSave }) {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const [value, onChange] = useState(new Date());
+
   return (
     <div className="flex flex-col h-screen bg-white">
-      <div className='bg-blue-400 m-8'>
+      <div className='bg-gray-400 m-8'>
         {/* sample  style p1
         <div className="mb-4 flex items-center">
                   <label className="block text-gray-700 mr-2">Date</label>
@@ -99,7 +101,7 @@ function TrainingValidation({ isOpen, onClose, onSave }) {
             <tr>
               <td className="border px-4 py-2">
                 <div className="mb-4 flex items-center">
-                  <label className="block text-gray-700 mr-2">Date</label>
+                  <label className="block text-black-700 mr-2 font-bold">Date</label>
                   <input
                     type="text"
                     id="field1"
@@ -109,7 +111,7 @@ function TrainingValidation({ isOpen, onClose, onSave }) {
               </td>
               <td className="border px-4 py-2">
               <div className="mb-4 flex items-center">
-                  <label className="block text-gray-700 mr-2">Date</label>
+                  <label className="block text-black-700 mr-2 font-bold">Status</label>
                   <input
                     type="text"
                     id="field1"
@@ -117,33 +119,97 @@ function TrainingValidation({ isOpen, onClose, onSave }) {
                   />
                       </div>
               </td>
-              <td className="border px-4 py-2">Data 3</td>
-              <td className="border px-4 py-2">Data 4</td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Training Name</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Start Date</label>
+                        <DateTimePicker onChange={onChange} value={value} 
+                        className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                         />
+                  </div></td>
             </tr>
             <tr>
-              <td className="border px-4 py-2">Data 5</td>
-              <td className="border px-4 py-2">Data 6</td>
-              <td className="border px-4 py-2">Data 7</td>
-              <td className="border px-4 py-2">Data 8</td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">End Date</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Zone</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Region</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Branch</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
             </tr>
             <tr>
-              <td className="border px-4 py-2">Data 9</td>
-              <td className="border px-4 py-2">Data 10</td>
-              <td className="border px-4 py-2">Data 11</td>
-              <td className="border px-4 py-2">Data 12</td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Channel</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Format</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Location</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                  <label className="block text-black-700 mr-2 font-bold">Trainers Name</label>
+                  <input
+                    type="text"
+                    id="field1"
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                      </div></td>
             </tr>
           </tbody>
         </table>
-
-
       </div>
-
-
 
       {/* radio */}
       <div className='flex justify-center bg-gray-300 mx-8'>
 
-        <h2 className='mr-2 text-center mt-2 border bg-black-500 rounded-lg p-2 mb-2 text-black'>Training Type </h2>
+        <h2 className='mr-2 text-center mt-2 border bg-black-500 rounded-lg p-2 mb-2 text-black font-bold'>Training Type </h2>
         <RadioGroup
           row
           aria-labelledby="demo-row-radio-buttons-group-label"
