@@ -7,7 +7,7 @@ import { FaPlus } from 'react-icons/fa';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function TrainingValidation({ isOpen, onClose, onSave }) {
+function ManageProgress({ isOpen, onClose, onSave }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const description = 'This is the description of the item.';
   const instructions = 'This is the instructions of the item.';
@@ -419,6 +419,6 @@ function TrainingValidation({ isOpen, onClose, onSave }) {
   );
 }
 
-export default TrainingValidation;
+export default ManageProgress;
 
 

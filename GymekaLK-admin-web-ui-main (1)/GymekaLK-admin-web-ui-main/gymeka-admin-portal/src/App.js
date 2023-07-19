@@ -10,6 +10,8 @@ import FileUpload from "./components/admin/popupbox/BulkUpload";
 import TrainersPage from "./components/trainers/TrainersPage";
 import CandidatesPage from "./components/admin/CandidatesPage";
 import TrainingPage from "./components/trainings/TrainingPage";
+import ProgressPage from "./components/progress/ProgressPage";
+import ManageProgress from "./components/progress/ManageProgress";
 
 // import About from "./components/home/About";
 // import Contact from "./components/home/Contact";
@@ -30,6 +32,9 @@ const App = () => {
         <Route path="/trainers" element={<TrainersPage/>} />
         <Route path="/candidates" element={<CandidatesPage/>} />
         <Route path="/trainings" element={<TrainingPage/>} />
+        <Route path="/progress" element={<ProgressPage/>} />
+        <Route path="/manage" element={<ManageProgress/>} />
+
 
         {/* <Route path="/about" element={<About />} />
         <Route path="/conatct" element={<Contact />} /> */}

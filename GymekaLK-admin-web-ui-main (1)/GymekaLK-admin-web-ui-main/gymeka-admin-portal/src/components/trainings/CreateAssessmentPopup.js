@@ -34,6 +34,22 @@ function CreateAssessmentPopup({ isOpen, onClose, onSave }) {
     setPopupOpen(true);
   };
 
+    const handlePopupCreateAssSave = () => {
+    setPopupOpen(true);
+  };
+
+    const handlePopupCreateAssClose = () => {
+    setPopupOpen(false);
+  };
+
+  const handlePopupLoadAssSave = () => {
+    setPopupOpen(true);
+  };
+
+  const handlePopupLoadAssClose = () => {
+    setPopupOpen(false);
+  };
+  
 return (
 <div className="flex flex-col h-screen bg-white">
       <div className="flex justify-between bg-white p-8">
@@ -65,10 +81,18 @@ return (
         {isPopupOpen && (
   <TrainingValidation
     branch={selectedBranches.length === 1 ? selectedBranches[0] : null}
-    onClose={handlePopupClose}
-    onSave={handlePopupSave}
+    onSave={handlePopupCreateAssSave}
+    onClose={handlePopupCreateAssClose}
     setSelectedBranches={updateSelectedBranches} 
   />
+)}
+                 {isPopupOpen && (
+                 <TrainingValidation
+                 branch={selectedBranches.length === 1 ? selectedBranches[0] : null}
+                onSave={handlePopupLoadAssSave}
+                onClose={handlePopupLoadAssClose}
+                setSelectedBranches={updateSelectedBranches} 
+           />
 )}
 
  </Modal>
