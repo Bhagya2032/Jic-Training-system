@@ -21,26 +21,20 @@ function MilestoneSetup() {
         <div className='mt-4 mx-8'>
             <table className="table-auto w-full border">
                 <thead>
-                    <tr>
-                        <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Milestone</th>
-                        <tbody>  <tr> <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 1</td>
-                            <td className="border px-4 py-2bg-blue-500 text-white py-2 px-4 rounded">Data 2</td>
-                            <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 3</td>
-                            <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 4</td>
-                            <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 5</td></tr></tbody>
-                        <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Points</th>
-                        <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Activity</th>
-                        <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Total</th>
-                    </tr>
-                </thead>
-
-
+                    <tr><div>
+                        <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Milestone</th></div></tr> </thead>
+                <tbody>  <tr> <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 1</td></tr>
+                    <tr> <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 2</td></tr>
+                    <tr>   <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 3</td></tr>
+                    <tr>   <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 4</td></tr>
+                    <tr>   <td className="border px-4 py-2 bg-blue-500 text-white py-2 px-4 rounded">Data 5</td></tr></tbody>
+                <div>    <thead> <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Points</th>
+                 <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Activity</th>
+                    <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Total</th></thead></div>
 
 
             </table>
         </div>
-
-
 
     );
 }
