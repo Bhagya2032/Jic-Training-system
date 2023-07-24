@@ -9,8 +9,6 @@ import { useNavigate } from 'react-router-dom';
 
 function CreateTraining({ isOpen, onClose, onSave }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const description = 'This is the description of the item.';
-  const instructions = 'This is the instructions of the item.';
   const [searchTerm, setSearchTerm] = useState('');
   const [branches, setBranches] = useState([]);
   const [branchesPerPage] = useState(10);
@@ -44,17 +42,7 @@ function CreateTraining({ isOpen, onClose, onSave }) {
     setIsModalOpen(false);
   };
 
-  const handleAddAssessment = () => {
-    setSelectedBranches([]);
-    setPopupOpen(true);
-  };
-
-  const handleLoadAssessment = () => {
-    setSelectedBranches([]);
-    setPopupOpen(true);
-  };
-
-  const handleScheduleTraining = () => {
+  const handleCreateTraining = () => {
     setSelectedBranches([]);
     setPopupOpen(true);
   };
@@ -113,18 +101,27 @@ function CreateTraining({ isOpen, onClose, onSave }) {
                   />
                 </div>
               </td>
-              <td className="border px-4 py-2">
-                <div className="mb-4 flex items-center">
-                  <label className="block text-black-700 mr-2 font-bold">Status</label>
-                  <input
-                    type="text"
-                    id="field1"
-                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  />
-                </div>
-              </td>
+              {/* radio */}
+      <div className='flex justify-center bg-gray-300 mx-8'>
+
+<h2 className='mr-2 text-center mt-2 border bg-black-500 rounded-lg p-2 mb-2 text-black font-bold'>Status </h2>
+<RadioGroup
+  row
+  aria-labelledby="demo-row-radio-buttons-group-label"
+  name="row-radio-buttons-group"
+>
+
+  <FormControlLabel value="csd1" control={<Radio />} label="CDS1" />
+  <FormControlLabel value="avo" control={<Radio />} label="AVO" />
+  <FormControlLabel value="cds2" control={<Radio />} label="CDS2" />
+  <FormControlLabel value="cds3" control={<Radio />} label="CDS3" />
+  <FormControlLabel value="other" control={<Radio />} label="Other" />
+
+</RadioGroup>
+
+</div>
               <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
-                <label className="block text-black-700 mr-2 font-bold">Training Name</label>
+                <label className="block text-black-700 mr-2 font-bold">Name</label>
                 <input
                   type="text"
                   id="field1"
@@ -208,7 +205,7 @@ function CreateTraining({ isOpen, onClose, onSave }) {
                 />
               </div></td>
               <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
-                <label className="block text-black-700 mr-2 font-bold">Location</label>
+                <label className="block text-black-700 mr-2 font-bold">Confirmed</label>
                 <input
                   type="text"
                   id="field1"
@@ -216,7 +213,15 @@ function CreateTraining({ isOpen, onClose, onSave }) {
                 />
               </div></td>
               <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
-                <label className="block text-black-700 mr-2 font-bold">Trainers Name</label>
+                <label className="block text-black-700 mr-2 font-bold">Pending</label>
+                <input
+                  type="text"
+                  id="field1"
+                  className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div></td>
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+                <label className="block text-black-700 mr-2 font-bold">Status</label>
                 <input
                   type="text"
                   id="field1"
@@ -227,95 +232,6 @@ function CreateTraining({ isOpen, onClose, onSave }) {
           </tbody>
         </table>
       </div>
-
-      {/* radio */}
-      <div className='flex justify-center bg-gray-300 mx-8'>
-
-        <h2 className='mr-2 text-center mt-2 border bg-black-500 rounded-lg p-2 mb-2 text-black font-bold'>Training Type </h2>
-        <RadioGroup
-          row
-          aria-labelledby="demo-row-radio-buttons-group-label"
-          name="row-radio-buttons-group"
-        >
-
-          <FormControlLabel value="csd1" control={<Radio />} label="CDS1" />
-          <FormControlLabel value="avo" control={<Radio />} label="AVO" />
-          <FormControlLabel value="cds2" control={<Radio />} label="CDS2" />
-          <FormControlLabel value="cds3" control={<Radio />} label="CDS3" />
-          <FormControlLabel value="other" control={<Radio />} label="Other" />
-
-        </RadioGroup>
-
-      </div>
-
-      <div className='mt-4 mx-8'>
-        <table className="table-auto w-full border">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 border">
-                {/* Training Description and Admin Instructions Buttons */}
-                <div className="flex justify-between bg-white p-8">
-                  <div>
-                    <button onClick={openModal} className="bg-blue-500 text-white py-2 px-4 rounded">
-                      Training Description
-                    </button>
-                  </div>
-                  <div>
-                    <button onClick={openModal} className="bg-blue-500 text-white py-2 px-4 rounded">
-                      Admin Instructions
-                    </button>
-                  </div>
-                </div>
-              </th>
-              <th className="px-4 py-2 border">Column 2</th>
-              <th className="px-4 py-2 border">Column 3</th>
-              <th className="px-4 py-2 border">Column 4</th>
-              <th className="px-4 py-2 border">Column 5</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border px-4 py-2">Data 1</td>
-              <td className="border px-4 py-2">Data 2</td>
-              <td className="border px-4 py-2">Data 3</td>
-              <td className="border px-4 py-2">Data 4</td>
-              <td className="border px-4 py-2">Data 5</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-      <div>
-        {/* Description Modal */}
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Description Pop-up">
-          <h2 className="text-xl font-bold mb-4">Description</h2>
-          <p>{description}</p>
-          <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
-            Close
-          </button>
-        </Modal>
-      </div><div>
-        {/* Instructions Modal */}
-        <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
-          <h2 className="text-xl font-bold mb-4">Instructions</h2>
-          <p>{instructions}</p>
-          <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
-            Close
-          </button>
-        </Modal>
-
-      </div>
-
 
       <div>
         <input
@@ -396,21 +312,9 @@ function CreateTraining({ isOpen, onClose, onSave }) {
       <div className="flex justify-between bg-white p-8">
         <button
           className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-          onClick={handleAddAssessment}
+          onClick={handleCreateTraining}
         >
-          <FaPlus className='mr-2' /> Create Assessment
-        </button>
-        <button
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-          onClick={handleLoadAssessment}
-        >
-          <FaPlus className='mr-2' /> Load Assessment
-        </button>
-        <button
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-          onClick={handleScheduleTraining}
-        >
-          <FaPlus className='mr-2' /> Schedule Training
+          <FaPlus className='mr-2' /> Create Training
         </button>
 
       </div>

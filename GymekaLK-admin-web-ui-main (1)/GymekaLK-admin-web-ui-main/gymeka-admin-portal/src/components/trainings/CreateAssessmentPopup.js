@@ -72,7 +72,7 @@ return (
        </Modal>
         <Route exact path="/" component={TrainingValidation} />
        <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
-        <h2 className="text-xl font-bold mb-4">Admin Instructions</h2>
+        <h2 className="text-xl font-bold mb-4"></h2>
         <p>{adminInstructions}</p>
         <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
           Close

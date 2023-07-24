@@ -79,7 +79,7 @@ function ManageProgress({ isOpen, onClose, onSave }) {
   const indexOfFirstBranch = indexOfLastBranch - branchesPerPage;
   const currentBranches = filteredBranches.slice(indexOfFirstBranch, indexOfLastBranch);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);  
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const [selectedDate, setSelectedDate] = useState('');
 
@@ -91,6 +91,15 @@ function ManageProgress({ isOpen, onClose, onSave }) {
   return (
     <div className="flex flex-col h-screen bg-white">
       <div className='bg-gray-400 m-8'>
+        <div>
+          <input
+            type='text'
+            className='bg-gray-100 text-gray-500 py-2 px-4 rounded '
+            placeholder='Search by branch code...'
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </div>
         {/* sample  style p1
         <div className="mb-4 flex items-center">
                   <label className="block text-gray-700 mr-2">Date</label>
@@ -123,44 +132,37 @@ function ManageProgress({ isOpen, onClose, onSave }) {
                   />
                 </div>
               </td>
-              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
-                <label className="block text-black-700 mr-2 font-bold">Training Name</label>
-                <input
-                  type="text"
-                  id="field1"
-                  className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div></td>
+
               <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
                 <div className='flex item-ceneter'>
                   <label className="block text-black-700 mr-2 font-bold">Start Date</label>
 
-                                      <input
-                                   type="datetime-local"
-                                     id="datetimepicker"
-                                   value={selectedDate}
-                                   onChange={handleDateChange}
-                                   className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  <input
+                    type="datetime-local"
+                    id="datetimepicker"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
 
-                                             />
+                  />
 
                 </div>
               </div>
               </td>
             </tr>
             <tr>
-            <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
+              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
                 <div className='flex item-ceneter'>
                   <label className="block text-black-700 mr-2 font-bold">End Date</label>
 
-                                      <input
-                                   type="datetime-local"
-                                     id="datetimepicker"
-                                   value={selectedDate}
-                                   onChange={handleDateChange}
-                                   className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  <input
+                    type="datetime-local"
+                    id="datetimepicker"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                    className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
 
-                                             />
+                  />
 
                 </div>
               </div>
@@ -182,7 +184,7 @@ function ManageProgress({ isOpen, onClose, onSave }) {
                 />
               </div></td>
               <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
-                <label className="block text-black-700 mr-2 font-bold">Branch</label>
+                <label className="block text-black-700 mr-2 font-bold">Format</label>
                 <input
                   type="text"
                   id="field1"
@@ -192,22 +194,6 @@ function ManageProgress({ isOpen, onClose, onSave }) {
             </tr>
             <tr>
               <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
-                <label className="block text-black-700 mr-2 font-bold">Channel</label>
-                <input
-                  type="text"
-                  id="field1"
-                  className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div></td>
-              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
-                <label className="block text-black-700 mr-2 font-bold">Format</label>
-                <input
-                  type="text"
-                  id="field1"
-                  className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-              </div></td>
-              <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
                 <label className="block text-black-700 mr-2 font-bold">Location</label>
                 <input
                   type="text"
@@ -215,6 +201,7 @@ function ManageProgress({ isOpen, onClose, onSave }) {
                   className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div></td>
+              
               <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
                 <label className="block text-black-700 mr-2 font-bold">Trainers Name</label>
                 <input
@@ -248,57 +235,12 @@ function ManageProgress({ isOpen, onClose, onSave }) {
 
       </div>
 
-      <div className='mt-4 mx-8'>
-        <table className="table-auto w-full border">
-          <thead>
-            <tr>
-              <th className="px-4 py-2 border">
-                {/* Training Description and Admin Instructions Buttons */}
-                <div className="flex justify-between bg-white p-8">
-                  <div>
-                    <button onClick={openModal} className="bg-blue-500 text-white py-2 px-4 rounded">
-                      Training Description
-                    </button>
-                  </div>
-                  <div>
-                    <button onClick={openModal} className="bg-blue-500 text-white py-2 px-4 rounded">
-                      Admin Instructions
-                    </button>
-                  </div>
-                </div>
-              </th>
-              <th className="px-4 py-2 border">Column 2</th>
-              <th className="px-4 py-2 border">Column 3</th>
-              <th className="px-4 py-2 border">Column 4</th>
-              <th className="px-4 py-2 border">Column 5</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border px-4 py-2">Data 1</td>
-              <td className="border px-4 py-2">Data 2</td>
-              <td className="border px-4 py-2">Data 3</td>
-              <td className="border px-4 py-2">Data 4</td>
-              <td className="border px-4 py-2">Data 5</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-
-
-
-
-
-
-
-
+      
 
       <div>
         {/* Description Modal */}
         <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Description Pop-up">
-          <h2 className="text-xl font-bold mb-4">Description</h2>
+          <h2 className="text-xl font-bold mb-4">Training Description</h2>
           <p>{description}</p>
           <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
             Close
@@ -307,24 +249,13 @@ function ManageProgress({ isOpen, onClose, onSave }) {
       </div><div>
         {/* Instructions Modal */}
         <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
-          <h2 className="text-xl font-bold mb-4">Instructions</h2>
+          <h2 className="text-xl font-bold mb-4">Admin Instructions</h2>
           <p>{instructions}</p>
           <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
             Close
           </button>
         </Modal>
 
-      </div>
-
-
-      <div>
-        <input
-          type='text'
-          className='bg-gray-100 text-gray-500 py-2 px-4 rounded '
-          placeholder='Search by branch code...'
-          value={searchTerm}
-          onChange={handleSearch}
-        />
       </div>
 
       {filteredBranches.length === 0 && <div className='text-white mb-4'>No candidate found.</div>}
@@ -398,19 +329,7 @@ function ManageProgress({ isOpen, onClose, onSave }) {
           className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
           onClick={handleAddAssessment}
         >
-          <FaPlus className='mr-2' /> Create Assessment
-        </button>
-        <button
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-          onClick={handleLoadAssessment}
-        >
-          <FaPlus className='mr-2' /> Load Assessment
-        </button>
-        <button
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-          onClick={handleScheduleTraining}
-        >
-          <FaPlus className='mr-2' /> Schedule Training
+          <FaPlus className='mr-2' /> Manage
         </button>
 
       </div>
