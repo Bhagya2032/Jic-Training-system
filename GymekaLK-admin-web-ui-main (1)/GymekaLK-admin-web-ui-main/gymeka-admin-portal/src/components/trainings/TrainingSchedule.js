@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import CreateAssessment from './CreateAssessment';
 import CreateAssessmentPopup from '../../components/trainings/CreateAssessmentPopup';
-
+import LoadAssessmentPopup from '../../components/trainings/LoadAssessmentPopup';
 
 const TrainingSchedule = () => {
   // State to manage the visibility of popup boxes
@@ -39,7 +39,9 @@ const TrainingSchedule = () => {
           <div className="bg-white p-4 rounded shadow">
             {/* Add your content for the Create Assessment popup */}
             <h2>Create Assessment Popup</h2>
-            {/* <CreateAssessmentPopup/> */}
+            <div>
+            <CreateAssessmentPopup/>
+            </div>
             <button
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               onClick={() => setShowCreateAssessment(false)}
@@ -56,7 +58,7 @@ const TrainingSchedule = () => {
             {/* Add your content for the Load Assessment popup */}
             <h2>Load Assessment Popup</h2>
             <div>
-           <CreateAssessment/>
+           <LoadAssessmentPopup/>
 
             </div>
             <button
@@ -74,6 +76,10 @@ const TrainingSchedule = () => {
           <div className="bg-white p-4 rounded shadow">
             {/* Add your content for the Schedule Training popup */}
             <h2>Schedule Training Popup</h2>
+            <div>
+           {/* <ScheduleTraining/> */}
+
+            </div>
             <button
               className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
               onClick={() => setShowScheduleTraining(false)}

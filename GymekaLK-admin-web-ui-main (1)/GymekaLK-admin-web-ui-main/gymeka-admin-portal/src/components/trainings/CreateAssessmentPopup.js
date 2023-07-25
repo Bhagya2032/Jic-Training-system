@@ -7,7 +7,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 function CreateAssessmentPopup({ isOpen, onClose, onSave }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const assessmentDescription = 'This is the description of the item.';
+  const trainingDescription = 'This is the description of the training.';
+  const adminInstructions = 'This is the instructions of the admin.';
   const [selectedBranches, setSelectedBranches] = useState([]);
   const [isPopupOpen, setPopupOpen] = useState(false);
 
@@ -15,7 +16,7 @@ function CreateAssessmentPopup({ isOpen, onClose, onSave }) {
     setIsModalOpen(true);
   };
 
-  const closeModal = (trainingDescription) => {
+  const closeModal = () => {
     setIsModalOpen(false);
   };
 
@@ -61,7 +62,7 @@ return (
 
 {/* Instructions Modal */}
 <Router>
-      <Router>
+      
         <Route exact path="/" component={TrainingValidation} />
        <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
         <h2 className="text-xl font-bold mb-4">Training Description</h2>
@@ -112,7 +113,7 @@ return (
             <FaPlus className='mr-2' /> Assign
           </button>  
    </div>          
-          </Router>
+          
 </Router>
 
   </div>   
