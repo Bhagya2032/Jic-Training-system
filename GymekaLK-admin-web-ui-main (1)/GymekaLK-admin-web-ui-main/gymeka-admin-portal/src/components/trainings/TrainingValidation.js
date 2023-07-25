@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 //import TextField from '@mui/material/TextField';
 import Modal from 'react-modal';
 import { FormControlLabel, RadioGroup, Radio } from '@mui/material';
-import { FaPlus } from 'react-icons/fa';
 //import CreateAssessmentPopup from './CreateAssessmentPopup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import TrainingSchedule from './TrainingSchedule';
 
 function TrainingValidation({ isOpen, onClose, onSave }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,20 +44,8 @@ function TrainingValidation({ isOpen, onClose, onSave }) {
     setIsModalOpen(false);
   };
 
-  const handleAddAssessment = () => {
-    setSelectedBranches([]);
-    setPopupOpen(true);
-  };
+ 
 
-  const handleLoadAssessment = () => {
-    setSelectedBranches([]);
-    setPopupOpen(true);
-  };
-
-  const handleScheduleTraining = () => {
-    setSelectedBranches([]);
-    setPopupOpen(true);
-  };
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -392,29 +380,11 @@ function TrainingValidation({ isOpen, onClose, onSave }) {
       )}
 
 
-
-      <div className="flex justify-between bg-white p-8">
-        <button
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-          onClick={handleAddAssessment}
-        >
-          <FaPlus className='mr-2' /> Create Assessment
-        </button>
-        <button
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-          onClick={handleLoadAssessment}
-        >
-          <FaPlus className='mr-2' /> Load Assessment
-        </button>
-        <button
-          className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-          onClick={handleScheduleTraining}
-        >
-          <FaPlus className='mr-2' /> Schedule Training
-        </button>
-
-      </div>
-
+     {/* Training Schedule */}
+      
+    <div>
+      <TrainingSchedule/>
+    </div>
     </div>
   );
 }

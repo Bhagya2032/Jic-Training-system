@@ -61,7 +61,7 @@ return (
 
 {/* Instructions Modal */}
 <Router>
-      <Switch>
+      <Router>
         <Route exact path="/" component={TrainingValidation} />
        <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
         <h2 className="text-xl font-bold mb-4">Training Description</h2>
@@ -112,7 +112,7 @@ return (
             <FaPlus className='mr-2' /> Assign
           </button>  
    </div>          
-          </Switch>
+          </Router>
 </Router>
 
   </div>   
