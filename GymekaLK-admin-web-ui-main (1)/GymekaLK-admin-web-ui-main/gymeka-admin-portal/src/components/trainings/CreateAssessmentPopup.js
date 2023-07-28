@@ -35,11 +35,11 @@ function CreateAssessmentPopup({ isOpen, onClose, onSave }) {
     setPopupOpen(true);
   };
 
-    const handlePopupCreateAssSave = () => {
+  const handlePopupCreateAssSave = () => {
     setPopupOpen(true);
   };
 
-    const handlePopupCreateAssClose = () => {
+  const handlePopupCreateAssClose = () => {
     setPopupOpen(false);
   };
 
@@ -50,9 +50,9 @@ function CreateAssessmentPopup({ isOpen, onClose, onSave }) {
   const handlePopupLoadAssClose = () => {
     setPopupOpen(false);
   };
-  
-return (
-<div className="flex flex-col h-screen bg-white">
+
+  return (
+    <div className="flex flex-col h-screen bg-white">
       <div className="flex justify-between bg-white p-8">
         {/* Rows and columns remain the same */}
         <div className="w-1/4 bg-gray-200 p-8">
@@ -60,68 +60,63 @@ return (
             <TextField id="assessmentName" label="Assessment Name" variant="outlined" className="w-full" />
           </div>
 
-{/* Instructions Modal */}
-<Router>
-      
-        <Route exact path="/" component={TrainingValidation} />
-       <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
-        <h2 className="text-xl font-bold mb-4">Training Description</h2>
-        <p>{trainingDescription}</p>
-        <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
-          Close
-        </button>
-       </Modal>
-        <Route exact path="/" component={TrainingValidation} />
-       <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
-        <h2 className="text-xl font-bold mb-4"></h2>
-        <p>{adminInstructions}</p>
-        <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
-          Close
-        </button>
+          {/* Instructions Modal */}
+          <Router>
+            <Route exact path="/" component={TrainingValidation} />
+            <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
+              <h2 className="text-xl font-bold mb-4">Training Description</h2>
+              <p>{trainingDescription}</p>
+              <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+                Close
+              </button>
+            </Modal>
 
-        {isPopupOpen && (
-  <TrainingValidation
-    branch={selectedBranches.length === 1 ? selectedBranches[0] : null}
-    onSave={handlePopupCreateAssSave}
-    onClose={handlePopupCreateAssClose}
-    setSelectedBranches={updateSelectedBranches} 
-  />
-)}
-                 {isPopupOpen && (
-                 <TrainingValidation
-                 branch={selectedBranches.length === 1 ? selectedBranches[0] : null}
+            <Route exact path="/admin" component={TrainingValidation} />
+            <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
+              <h2 className="text-xl font-bold mb-4">Admin Instructions</h2>
+              <p>{adminInstructions}</p>
+              <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
+                Close
+              </button>
+            </Modal>
+
+            {isPopupOpen && (
+              <TrainingValidation
+                branch={selectedBranches.length === 1 ? selectedBranches[0] : null}
+                onSave={handlePopupCreateAssSave}
+                onClose={handlePopupCreateAssClose}
+                setSelectedBranches={updateSelectedBranches}
+              />
+            )}
+            {isPopupOpen && (
+              <TrainingValidation
+                branch={selectedBranches.length === 1 ? selectedBranches[0] : null}
                 onSave={handlePopupLoadAssSave}
                 onClose={handlePopupLoadAssClose}
-                setSelectedBranches={updateSelectedBranches} 
-           />
-)}
+                setSelectedBranches={updateSelectedBranches}
+              />
+            )}
+          </Router>
 
- </Modal>
-     
-      <div>
-          <button
-            className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-            onClick={saveFormat}
-          >
-            <FaPlus className='mr-2' /> Save Format
-          </button>          
+          <div>
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex items center"
+              onClick={saveFormat}
+            >
+              <FaPlus className="mr-2" /> Save Format
+            </button>
 
-          <button
-            className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-            onClick={assign}
-          >
-            <FaPlus className='mr-2' /> Assign
-          </button>  
-   </div>          
-          
-</Router>
-
-  </div>   
-  </div>   
-</div>
-);
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex items center"
+              onClick={assign}
+            >
+              <FaPlus className="mr-2" /> Assign
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default CreateAssessmentPopup;
-
-
