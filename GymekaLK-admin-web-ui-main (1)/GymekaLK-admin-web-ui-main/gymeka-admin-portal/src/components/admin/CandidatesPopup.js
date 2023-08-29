@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 
-function CandidatesPopup({ branch, onClose, onSave }) {
-  const [branchData, setBranchData] = useState({
-    branchCode: branch ? branch.branchCode : '',
-    location: branch ? branch.location : '',
-    openTime: branch ? branch.openTime : '',
-    closeTime: branch ? branch.closeTime : '',
-    managerName: branch ? branch.managerName : '',
-    // status: branch ? branch.status : '',
-    // avo: branch ? branch.avo : '',
-    // cds2: branch ? branch.cds2 : '',
-    // cds3: branch ? branch.cds3 : '',
-    // designation: branch ? branch.designation : '',
+function CandidatesPopup({ candidates, onClose, onSave }) {
+  const [candidatesData, setCandidateData] = useState({
+    candidatesCode: candidates ? candidates.candidatesCode : '',
+    location: candidates ? candidates.location : '',
+    openTime: candidates ? candidates.openTime : '',
+    closeTime: candidates ? candidates.closeTime : '',
+    trainerName: candidates ? candidates.trainerName : '',
+    // status: candidates ? candidates.status : '',
+    // avo: candidates ? candidates.avo : '',
+    // cds2: candidates ? candidates.cds2 : '',
+    // cds3: candidates ? candidates.cds3 : '',
+    // designation: candidates ? candidates.designation : '',
    
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setBranchData((prevState) => ({
+    setCandidateData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -25,27 +25,27 @@ function CandidatesPopup({ branch, onClose, onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(branchData);
+    onSave(candidatesData);
   };
 
 
   return (
     <div className="fixed top-0 left-0 flex items-center justify-center min-h-screen w-full bg-gray-800 bg-opacity-50">
       <div className="bg-white w-1/2 p-4 rounded-xl">
-        <h2 className="text-xl font-bold mb-4">{branch ? 'Update Branch' : 'Add Branch'}</h2>
+        <h2 className="text-xl font-bold mb-4">{candidates ? 'Update Candidate' : 'Add Candidate'}</h2>
         <div className="h-96 overflow-y-auto"> {/* Set the desired height and apply overflow-y */}
           <form onSubmit={handleSubmit}>
             {/* Form fields */}
             <div className="mb-4">
-            <label className="block mb-1" htmlFor="branchCode">
+            <label className="block mb-1" htmlFor="candidatesCode">
               Id
             </label>
             <input
               className="border border-gray-400 px-2 py-1 w-full"
               type="text"
-              id="branchCode"
-              name="branchCode"
-              value={branchData.branchCode}
+              id="candidatesCode"
+              name="candidatesCode"
+              value={candidatesData.candidatesCode}
               onChange={handleChange}
             />
           </div>
@@ -58,7 +58,7 @@ function CandidatesPopup({ branch, onClose, onSave }) {
               type="text"
               id="location"
               name="location"
-              value={branchData.location}
+              value={candidatesData.location}
               onChange={handleChange}
             />
           </div>
@@ -71,7 +71,7 @@ function CandidatesPopup({ branch, onClose, onSave }) {
               type="text"
               id="openTime"
               name="openTime"
-              value={branchData.openTime}
+              value={candidatesData.openTime}
               onChange={handleChange}
             />
           </div>
@@ -85,20 +85,20 @@ function CandidatesPopup({ branch, onClose, onSave }) {
               id="closeTime"
               name="closeTime"
             //  placeholder='example@gmail.com'
-              value={branchData.closeTime}
+              value={candidatesData.closeTime}
               onChange={handleChange}
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1" htmlFor="managerName">
+            <label className="block mb-1" htmlFor="trainerName">
               NIC
             </label>
             <input
               className="border border-gray-400 px-2 py-1 w-full"
               type="text"
-              id="managerName"
-              name="managerName"
-              value={branchData.managerName}
+              id="trainerName"
+              name="trainerName"
+              value={candidatesData.trainerName}
               onChange={handleChange}
             />
           </div>
@@ -123,7 +123,7 @@ function CandidatesPopup({ branch, onClose, onSave }) {
               type="text"
               id="avo"
               name="avo"
-              value={branchData.branchCode}
+              value={candidatesData.candidatesCode}
               onChange={handleChange}
             />
           </div>
@@ -136,7 +136,7 @@ function CandidatesPopup({ branch, onClose, onSave }) {
               type="text"
               id="cds2"
               name="cds2"
-              value={branchData.branchCode}
+              value={candidatesData.candidatesCode}
               onChange={handleChange}
             />
           </div>
@@ -149,7 +149,7 @@ function CandidatesPopup({ branch, onClose, onSave }) {
               type="text"
               id="cds3"
               name="cds3"
-              value={branchData.branchCode}
+              value={candidatesData.candidatesCode}
               onChange={handleChange}
             />
           </div>
@@ -162,7 +162,7 @@ function CandidatesPopup({ branch, onClose, onSave }) {
               type="text"
               id="designation"
               name="designation"
-              value={branchData.branchCode}
+              value={candidatesData.candidatesCode}
               onChange={handleChange}
             />
           </div> */}
@@ -172,7 +172,7 @@ function CandidatesPopup({ branch, onClose, onSave }) {
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-2 rounded"
             type="submit"
           >
-            {branch ? 'Update' : 'Add'}
+            {candidates ? 'Update' : 'Add'}
           </button>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

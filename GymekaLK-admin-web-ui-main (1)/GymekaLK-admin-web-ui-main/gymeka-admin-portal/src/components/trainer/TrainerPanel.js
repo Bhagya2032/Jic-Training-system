@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ManagerPanel = () => {
+const TrainerPanel = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,10 +22,10 @@ const ManagerPanel = () => {
 
   return (
     <div className='bg-green-300 min-h-screen'>
-      <h1>ManagerPanel</h1>
+      <h1>Trainer</h1>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };
 
-export default ManagerPanel;
+export default TrainerPanel;

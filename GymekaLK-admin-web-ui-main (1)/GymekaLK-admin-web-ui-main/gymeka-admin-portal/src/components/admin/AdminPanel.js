@@ -9,6 +9,7 @@ const AdminPanel = () => {
     <div className='bg-blue-300 min-h-screen'>
       <AdminSlideBar/>
       <ToastContainer />
+    
     </div>
   );
 };

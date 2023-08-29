@@ -6,31 +6,32 @@ import { FaPlus } from 'react-icons/fa';
 //import CreateAssessmentPopup from './CreateAssessmentPopup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import IssueSurvey from './IssueSurvey';
 
 function ManageTrainingProgress({ isOpen, onClose, onSave }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const description = 'This is the description of the item.';
     const instructions = 'This is the instructions of the item.';
     const [searchTerm, setSearchTerm] = useState('');
-    const [branches, setBranches] = useState([]);
-    const [branchesPerPage] = useState(10);
+    const [progresss, setProgress] = useState([]);
+    const [progresssPerPage] = useState(10);
     const token = localStorage.getItem('token');
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedBranches, setSelectedBranches] = useState([]);
+    const [selectedProgress, setSelectedProgress] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchBranches();
+        fetchProgress();
     }, []);
 
-    const fetchBranches = async () => {
+    const fetchProgress = async () => {
         try {
-            const response = await axios.get('http://localhost:8005/api/branches', {
+            const response = await axios.get('http://localhost:8005/api/progresss', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setBranches(response.data.branches);
+            setProgress(response.data.progresss);
         } catch (error) {
             console.log(error);
         }
@@ -45,17 +46,17 @@ function ManageTrainingProgress({ isOpen, onClose, onSave }) {
     };
 
     const handleAddAssessment = () => {
-        setSelectedBranches([]);
+        setSelectedProgress([]);
         setPopupOpen(true);
     };
 
     const handleLoadAssessment = () => {
-        setSelectedBranches([]);
+        setSelectedProgress([]);
         setPopupOpen(true);
     };
 
     const handleScheduleTraining = () => {
-        setSelectedBranches([]);
+        setSelectedProgress([]);
         setPopupOpen(true);
     };
 
@@ -63,21 +64,21 @@ function ManageTrainingProgress({ isOpen, onClose, onSave }) {
         setSearchTerm(e.target.value);
     };
 
-    const handleSelectBranch = (branch) => {
-        if (selectedBranches.includes(branch)) {
-            setSelectedBranches(selectedBranches.filter((selectedBranch) => selectedBranch !== branch));
+    const handleSelectProgress = (progresss) => {
+        if (selectedProgress.includes(progresss)) {
+            setSelectedProgress(selectedProgress.filter((selectedProgress) => selectedProgress !== progresss));
         } else {
-            setSelectedBranches([...selectedBranches, branch]);
+            setSelectedProgress([...selectedProgress, progresss]);
         }
     };
 
-    const filteredBranches = branches.filter((branch) => {
-        return branch.branchCode.toLowerCase().includes(searchTerm.toLowerCase());
+    const filteredProgress = progresss.filter((progresss) => {
+        return progresss.progresssCode.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
-    const indexOfLastBranch = currentPage * branchesPerPage;
-    const indexOfFirstBranch = indexOfLastBranch - branchesPerPage;
-    const currentBranches = filteredBranches.slice(indexOfFirstBranch, indexOfLastBranch);
+    const indexOfLastProgress = currentPage * progresssPerPage;
+    const indexOfFirstProgress = indexOfLastProgress - progresssPerPage;
+    const currentProgress = filteredProgress.slice(indexOfFirstProgress, indexOfLastProgress);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -105,7 +106,7 @@ function ManageTrainingProgress({ isOpen, onClose, onSave }) {
                     <input
                         type='text'
                         className='bg-gray-100 text-gray-500 py-2 px-4 rounded '
-                        placeholder='Search by branch code...'
+                        placeholder='Search by progresss code...'
                         value={searchTerm}
                         onChange={handleSearch}
                     />
@@ -193,7 +194,7 @@ function ManageTrainingProgress({ isOpen, onClose, onSave }) {
                                 />
                             </div></td>
                             <td className="border px-4 py-2"> <div className="mb-4 flex items-center">
-                                <label className="block text-black-700 mr-2 font-bold">Branch</label>
+                                <label className="block text-black-700 mr-2 font-bold">Progress</label>
                                 <input
                                     type="text"
                                     id="field1"
@@ -328,16 +329,16 @@ function ManageTrainingProgress({ isOpen, onClose, onSave }) {
             </div>
 
 
-            {filteredBranches.length === 0 && <div className='text-white mb-4'>No candidate found.</div>}
+            {filteredProgress.length === 0 && <div className='text-white mb-4'>No progress found.</div>}
 
-            {filteredBranches.length > 0 && (
+            {filteredProgress.length > 0 && (
                 <table className='w-full ml-6 text-black '>
                     <div class='h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
                         <thead>
                             <tr>
                                 <th className='py-2 px-4'></th>
                                 <th className='py-2 px-4'>Id</th>
-                                <th className='py-2 px-4'>Candidate Name</th>
+                                <th className='py-2 px-4'>Progress Name</th>
                                 <th className='py-2 px-4'>Mobile</th>
                                 <th className='py-2 px-4'>Email</th>
                                 <th className='py-2 px-4'>NIC</th>
@@ -345,24 +346,24 @@ function ManageTrainingProgress({ isOpen, onClose, onSave }) {
                         </thead>
 
                         <tbody>
-                            {currentBranches.map((branch) => (
+                            {currentProgress.map((progresss) => (
                                 <tr
-                                    key={branch._id}
-                                    className={`hover:bg-gray-100 ${selectedBranches.includes(branch) ? 'bg-gray-100' : ''
+                                    key={progresss._id}
+                                    className={`hover:bg-gray-100 ${selectedProgress.includes(progresss) ? 'bg-gray-100' : ''
                                         }`}
                                 >
                                     <td className='py-2 px-4 border'>
                                         <input
                                             type='checkbox'
-                                            checked={selectedBranches.includes(branch)}
-                                            onChange={() => handleSelectBranch(branch)}
+                                            checked={selectedProgress.includes(progresss)}
+                                            onChange={() => handleSelectProgress(progresss)}
                                         />
                                     </td>
-                                    <td className='py-2 px-4 border'>{branch.branchCode}</td>
-                                    <td className='py-2 px-4 border'>{branch.location}</td>
-                                    <td className='py-2 px-4 border'>{branch.openTime}</td>
-                                    <td className='py-2 px-4 border'>{branch.closeTime}</td>
-                                    <td className='py-2 px-4 border'>{branch.managerName}</td>
+                                    <td className='py-2 px-4 border'>{progresss.progresssCode}</td>
+                                    <td className='py-2 px-4 border'>{progresss.location}</td>
+                                    <td className='py-2 px-4 border'>{progresss.openTime}</td>
+                                    <td className='py-2 px-4 border'>{progresss.closeTime}</td>
+                                    <td className='py-2 px-4 border'>{progresss.managerName}</td>
                                 </tr>
                             ))}
                         </tbody>
@@ -370,11 +371,11 @@ function ManageTrainingProgress({ isOpen, onClose, onSave }) {
                 </table>
             )}
 
-            {filteredBranches.length > branchesPerPage && (
+            {filteredProgress.length > progresssPerPage && (
                 <div className='flex justify-center mt-4'>
                     <nav>
                         <ul className='flex items-center'>
-                            {Array.from({ length: Math.ceil(filteredBranches.length / branchesPerPage) }).map(
+                            {Array.from({ length: Math.ceil(filteredProgress.length / progresssPerPage) }).map(
                                 (_, index) => (
                                     <li key={index}>
                                         <button
@@ -401,7 +402,7 @@ function ManageTrainingProgress({ isOpen, onClose, onSave }) {
                             <div className="flex justify-between bg-white p-8">
                                 <div>
                                     <button onClick={openModal} className="bg-blue-500 text-white py-2 px-4 rounded">
-                                        Training Remarks
+                                        Trainers Remarks
                                     </button>
                                 </div>
                             </div>

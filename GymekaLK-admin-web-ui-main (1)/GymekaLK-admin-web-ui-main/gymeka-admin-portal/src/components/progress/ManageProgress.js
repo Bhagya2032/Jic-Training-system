@@ -12,25 +12,25 @@ function ManageProgress({ isOpen, onClose, onSave }) {
   const description = 'This is the description of the item.';
   const instructions = 'This is the instructions of the item.';
   const [searchTerm, setSearchTerm] = useState('');
-  const [branches, setBranches] = useState([]);
-  const [branchesPerPage] = useState(10);
+  const [progress, setProgress] = useState([]);
+  const [progressPerPage] = useState(10);
   const token = localStorage.getItem('token');
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedBranches, setSelectedBranches] = useState([]);
+  const [selectedProgress, setSelectedProgress] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchBranches();
+    fetchProgress();
   }, []);
 
-  const fetchBranches = async () => {
+  const fetchProgress = async () => {
     try {
-      const response = await axios.get('http://localhost:8005/api/branches', {
+      const response = await axios.get('http://localhost:8005/api/progress', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setBranches(response.data.branches);
+      setProgress(response.data.progress);
     } catch (error) {
       console.log(error);
     }
@@ -45,17 +45,17 @@ function ManageProgress({ isOpen, onClose, onSave }) {
   };
 
   const handleAddAssessment = () => {
-    setSelectedBranches([]);
+    setSelectedProgress([]);
     setPopupOpen(true);
   };
 
   const handleLoadAssessment = () => {
-    setSelectedBranches([]);
+    setSelectedProgress([]);
     setPopupOpen(true);
   };
 
   const handleScheduleTraining = () => {
-    setSelectedBranches([]);
+    setSelectedProgress([]);
     setPopupOpen(true);
   };
 
@@ -63,21 +63,21 @@ function ManageProgress({ isOpen, onClose, onSave }) {
     setSearchTerm(e.target.value);
   };
 
-  const handleSelectBranch = (branch) => {
-    if (selectedBranches.includes(branch)) {
-      setSelectedBranches(selectedBranches.filter((selectedBranch) => selectedBranch !== branch));
+  const handleSelectProgress = (progress) => {
+    if (selectedProgress.includes(progress)) {
+      setSelectedProgress(selectedProgress.filter((selectedProgress) => selectedProgress !== progress));
     } else {
-      setSelectedBranches([...selectedBranches, branch]);
+      setSelectedProgress([...selectedProgress, progress]);
     }
   };
 
-  const filteredBranches = branches.filter((branch) => {
-    return branch.branchCode.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredProgress = progress.filter((progress) => {
+    return progress.progressCode.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
-  const indexOfLastBranch = currentPage * branchesPerPage;
-  const indexOfFirstBranch = indexOfLastBranch - branchesPerPage;
-  const currentBranches = filteredBranches.slice(indexOfFirstBranch, indexOfLastBranch);
+  const indexOfLastProgress = currentPage * progressPerPage;
+  const indexOfFirstProgress = indexOfLastProgress - progressPerPage;
+  const currentProgress = filteredProgress.slice(indexOfFirstProgress, indexOfLastProgress);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -95,7 +95,7 @@ function ManageProgress({ isOpen, onClose, onSave }) {
           <input
             type='text'
             className='bg-gray-100 text-gray-500 py-2 px-4 rounded '
-            placeholder='Search by branch code...'
+            placeholder='Search by progress code...'
             value={searchTerm}
             onChange={handleSearch}
           />
@@ -258,16 +258,16 @@ function ManageProgress({ isOpen, onClose, onSave }) {
 
       </div>
 
-      {filteredBranches.length === 0 && <div className='text-white mb-4'>No candidate found.</div>}
+      {filteredProgress.length === 0 && <div className='text-white mb-4'>No progress found.</div>}
 
-      {filteredBranches.length > 0 && (
+      {filteredProgress.length > 0 && (
         <table className='w-full ml-6 text-black '>
           <div class='h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
             <thead>
               <tr>
                 <th className='py-2 px-4'></th>
                 <th className='py-2 px-4'>Id</th>
-                <th className='py-2 px-4'>Candidate Name</th>
+                <th className='py-2 px-4'>Progress Name</th>
                 <th className='py-2 px-4'>Mobile</th>
                 <th className='py-2 px-4'>Email</th>
                 <th className='py-2 px-4'>NIC</th>
@@ -275,24 +275,24 @@ function ManageProgress({ isOpen, onClose, onSave }) {
             </thead>
 
             <tbody>
-              {currentBranches.map((branch) => (
+              {currentProgress.map((progress) => (
                 <tr
-                  key={branch._id}
-                  className={`hover:bg-gray-100 ${selectedBranches.includes(branch) ? 'bg-gray-100' : ''
+                  key={progress._id}
+                  className={`hover:bg-gray-100 ${selectedProgress.includes(progress) ? 'bg-gray-100' : ''
                     }`}
                 >
                   <td className='py-2 px-4 border'>
                     <input
                       type='checkbox'
-                      checked={selectedBranches.includes(branch)}
-                      onChange={() => handleSelectBranch(branch)}
+                      checked={selectedProgress.includes(progress)}
+                      onChange={() => handleSelectProgress(progress)}
                     />
                   </td>
-                  <td className='py-2 px-4 border'>{branch.branchCode}</td>
-                  <td className='py-2 px-4 border'>{branch.location}</td>
-                  <td className='py-2 px-4 border'>{branch.openTime}</td>
-                  <td className='py-2 px-4 border'>{branch.closeTime}</td>
-                  <td className='py-2 px-4 border'>{branch.managerName}</td>
+                  <td className='py-2 px-4 border'>{progress.progressCode}</td>
+                  <td className='py-2 px-4 border'>{progress.location}</td>
+                  <td className='py-2 px-4 border'>{progress.openTime}</td>
+                  <td className='py-2 px-4 border'>{progress.closeTime}</td>
+                  <td className='py-2 px-4 border'>{progress.managerName}</td>
                 </tr>
               ))}
             </tbody>
@@ -300,11 +300,11 @@ function ManageProgress({ isOpen, onClose, onSave }) {
         </table>
       )}
 
-      {filteredBranches.length > branchesPerPage && (
+      {filteredProgress.length > progressPerPage && (
         <div className='flex justify-center mt-4'>
           <nav>
             <ul className='flex items-center'>
-              {Array.from({ length: Math.ceil(filteredBranches.length / branchesPerPage) }).map(
+              {Array.from({ length: Math.ceil(filteredProgress.length / progressPerPage) }).map(
                 (_, index) => (
                   <li key={index}>
                     <button
@@ -329,7 +329,7 @@ function ManageProgress({ isOpen, onClose, onSave }) {
           className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
           onClick={handleAddAssessment}
         >
-          <FaPlus className='mr-2' /> Manage
+          <FaPlus className='mr-2' /> Save
         </button>
 
       </div>

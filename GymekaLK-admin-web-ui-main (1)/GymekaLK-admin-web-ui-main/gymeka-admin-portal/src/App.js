@@ -12,10 +12,9 @@ import CandidatesPage from "./components/admin/CandidatesPage";
 import TrainingPage from "./components/trainings/TrainingPage";
 import ProgressPage from "./components/progress/ProgressPage";
 import ManageProgress from "./components/progress/ManageProgress";
-
-// import About from "./components/home/About";
-// import Contact from "./components/home/Contact";
-
+import MilestoneSetupPage from "./components/milestone setup/MilestoneSetupPage";
+import MilestoneTrackerPage from "./components/milestone tracker/MilestoneTrackerPage";
+import ProgressValidation from "./components/profile/ProfileValidation";
 
 const App = () => {
   return (
@@ -25,7 +24,7 @@ const App = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/admin-panel" element={<AdminPanel />} />
-        {/* <Route path="/trainers-panel" element={<TrainersPanel />} /> */}
+        <Route path="/trainer-panel" element={<AdminPanel />} />
         <Route path="/email" element={<Emailpage />} />
         <Route path="/forgetpassword" element={<ForgetPwd/>} />
         <Route path="/fileupload" element={<FileUpload/>} />
@@ -34,10 +33,11 @@ const App = () => {
         <Route path="/trainings" element={<TrainingPage/>} />
         <Route path="/progress" element={<ProgressPage/>} />
         <Route path="/manage" element={<ManageProgress/>} />
-
-
-        {/* <Route path="/about" element={<About />} />
-        <Route path="/conatct" element={<Contact />} /> */}
+        <Route path="/milestonesetup" element={<MilestoneSetupPage/>} />
+        <Route path="/milestonetracker" element={<MilestoneTrackerPage/>} />
+        <Route path="/manageprogress" element={<ManageProgress/>} />
+        <Route path="/progressvalidation" element={<ProgressValidation/>} />
+        
       </Routes>
     </Router>
   );
@@ -45,3 +45,6 @@ const App = () => {
 
 
 export default App;
+
+
+

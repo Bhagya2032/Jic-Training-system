@@ -1,8 +1,9 @@
 const AdminSettingsPage = () => {
 
     return (
-      <div className='bg-blue-300 min-h-screen'>
-       <h1>Admin Settings</h1>
+      <div className="bg-white min-h-screen p-4">
+      <h1 className='text-2xl font-bold text-white mb-4 text-start rounded-xl p-2 bg-orange-500'>
+        Admin Settings Page</h1>
       </div>
     );
   };

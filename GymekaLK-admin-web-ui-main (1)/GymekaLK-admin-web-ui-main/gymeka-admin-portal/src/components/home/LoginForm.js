@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SyncLoader } from 'react-spinners';
 
-const LoginForm = () => {
+function LoginForm(){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('admin');
+  const [role, setRole] = useState('');
   const [message, setMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -14,42 +14,34 @@ const LoginForm = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      if (role === 'admin') {
-        navigate('/admin-panel');
-      } else if (role === 'manager') {
-        navigate('/manager-panel');
-      }
+      navigate(`/${role}-panel`);
     }
   }, [role, navigate]);
 
- const handleLogin = async (e) => {
-  e.preventDefault();
-  setIsLoading(true);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-  try {
-    const response = await axios.post(`http://localhost:8005/api/${role}/login`, {
-      email,
-      password,
-    });
+    try {
+        const response = await axios.post(`http://localhost:8005/api/${role}/login`, {
+        email,
+        password,
+      });
 
-    const token = response.data.token;
-    localStorage.setItem('role', role);
-    localStorage.setItem('token', JSON.stringify(token)); // Store token as a string
+      const token = response.data.token;
+      localStorage.setItem('role', role);
+      localStorage.setItem('token', token);
 
-    setEmail('');
-    setPassword('');
+      setEmail('');
+      setPassword('');
 
-    if (role === 'admin') {
-      navigate('/admin-panel');
-    } else if (role === 'manager') {
-      navigate('/manager-panel');
+      navigate(`/${role}-panel`);
+    } catch (error) {
+      setMessage(error.response?.data?.error || 'An error occurred');
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    setMessage(error.response.data.error);
-    setIsLoading(false);
-  }
-};
-
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-orange-400 to-rose-400">
@@ -91,16 +83,13 @@ const LoginForm = () => {
               className="bg-gray-200 rounded-md py-2 px-3 mt-2 w-full"
             >
               <option value="admin">Admin</option>
-              <option value="manager">Manager</option>
+              <option value="trainer">Trainer</option>
             </select>
           </div>
-          
-         
           <button
             type="submit"
             className="relative font-bold bg-gradient-to-r from-blue-600 to-violet-600 text-white py-2 px-4 rounded-md w-full overflow-hidden transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-700 hover:to-violet-700 hover:scale-110"
           >
-         
             {isLoading ? (
               <SyncLoader size={10} color="#ffffff" />
             ) : (
@@ -111,14 +100,13 @@ const LoginForm = () => {
             )}
           </button>
         </form>
-       <Link to='/forgetpassword'>
-       <h2  className='text-white  mt-2'>Forget Password?</h2>
-       </Link>
+        <Link to='/forgetpassword'>
+          <h2 className='text-white mt-2'>Forget Password?</h2>
+        </Link>
         {message && <p className="text-white mt-4">{message}</p>}
       </div>
-      
-      
-    </div>
+     </div>
+     
   );
 };
 

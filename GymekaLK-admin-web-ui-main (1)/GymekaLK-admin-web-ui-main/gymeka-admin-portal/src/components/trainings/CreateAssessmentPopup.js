@@ -3,13 +3,14 @@ import TextField from '@mui/material/TextField';
 import Modal from 'react-modal';
 import { FaPlus } from 'react-icons/fa';
 import TrainingValidation from './TrainingValidation';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import SaveFormatAssign from './SaveFormatAssign';
+// import { Routes, Route } from 'react-router-dom';
 
 function CreateAssessmentPopup({ isOpen, onClose, onSave }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const trainingDescription = 'This is the description of the training.';
   const adminInstructions = 'This is the instructions of the admin.';
-  const [selectedBranches, setSelectedBranches] = useState([]);
+  const [selectedTrainings, setSelectedTrainings] = useState([]);
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   const openModal = () => {
@@ -21,17 +22,17 @@ function CreateAssessmentPopup({ isOpen, onClose, onSave }) {
   };
 
   const saveFormat = () => {
-    setSelectedBranches([]);
+    setSelectedTrainings([]);
     setPopupOpen(true);
   };
 
   const assign = () => {
-    setSelectedBranches([]);
+    setSelectedTrainings([]);
     setPopupOpen(true);
   };
 
-  const updateSelectedBranches = () => {
-    setSelectedBranches([]);
+  const updateSelectedTrainings = () => {
+    setSelectedTrainings([]);
     setPopupOpen(true);
   };
 
@@ -61,58 +62,52 @@ function CreateAssessmentPopup({ isOpen, onClose, onSave }) {
           </div>
 
           {/* Instructions Modal */}
-          <Router>
-            <Route exact path="/" component={TrainingValidation} />
-            <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
+          <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
+            {/* Use shorthand <> and </> to include the content of TrainingValidation */}
+            <>
               <h2 className="text-xl font-bold mb-4">Training Description</h2>
               <p>{trainingDescription}</p>
               <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
                 Close
               </button>
-            </Modal>
 
-            <Route exact path="/admin" component={TrainingValidation} />
-            <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
-              <h2 className="text-xl font-bold mb-4">Admin Instructions</h2>
-              <p>{adminInstructions}</p>
+              <TrainingValidation />
+            </>
+          </Modal>
+
+
+          <Modal isOpen={isModalOpen} onRequestClose={closeModal} contentLabel="Instructions Pop-up">
+            {/* Use shorthand <> and </> to include the content of TrainingValidation */}
+            <>
+              <h2 className="text-xl font-bold mb-4">Training Description</h2>
+              <p>{trainingDescription}</p>
               <button onClick={closeModal} className="mt-4 bg-blue-500 text-white py-2 px-4 rounded">
                 Close
               </button>
-            </Modal>
+
+              <TrainingValidation />
+            </>
+          </Modal>
 
             {isPopupOpen && (
               <TrainingValidation
-                branch={selectedBranches.length === 1 ? selectedBranches[0] : null}
+                trainings={selectedTrainings.length === 1 ? selectedTrainings[0] : null}
                 onSave={handlePopupCreateAssSave}
                 onClose={handlePopupCreateAssClose}
-                setSelectedBranches={updateSelectedBranches}
+                setSelectedTrainings={updateSelectedTrainings}
               />
             )}
             {isPopupOpen && (
               <TrainingValidation
-                branch={selectedBranches.length === 1 ? selectedBranches[0] : null}
+                trainings={selectedTrainings.length === 1 ? selectedTrainings[0] : null}
                 onSave={handlePopupLoadAssSave}
                 onClose={handlePopupLoadAssClose}
-                setSelectedBranches={updateSelectedBranches}
+                setSelectedTrainings={updateSelectedTrainings}
               />
             )}
-          </Router>
+          
+<SaveFormatAssign/>
 
-          <div>
-            <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex items center"
-              onClick={saveFormat}
-            >
-              <FaPlus className="mr-2" /> Save Format
-            </button>
-
-            <button
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex items center"
-              onClick={assign}
-            >
-              <FaPlus className="mr-2" /> Assign
-            </button>
-          </div>
         </div>
       </div>
     </div>

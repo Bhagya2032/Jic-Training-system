@@ -9,17 +9,23 @@ import { FormControlLabel, RadioGroup, Radio } from '@mui/material';
 
 
 function MilestoneSetup() {
-    const [branches, setBranches] = useState([]);
+    const [candidates, setCandidates] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [branchesPerPage] = useState(10);
+    const [candidatesPerPage] = useState(10);
     const [isPopupOpen, setPopupOpen] = useState(false);
-    const [selectedBranches, setSelectedBranches] = useState([]);
+    const [selectedCandidates, setSelectedCandidates] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
+    const [cellValue, setCellValue] = useState('Initial Value'); // Initialize with the initial value
+    const [inputValue, setInputValue] = useState('');
 
     const handleSubmit = () => {
-        setSelectedBranches(true);
+        setSelectedCandidates(true);
+      };
+
+      const handleInputChange = (event) => {
+        setInputValue(event.target.value);
       };
 
     return (
@@ -41,43 +47,51 @@ function MilestoneSetup() {
 
 </div>
 
-<table className="table-auto w-full text-white border">
+<table className="table-auto w-full text-white border bg-black-500">
   <thead>
     <tr>
       <th className="px-4 py-2 border bg-blue-500 text-black py-2 px-4 rounded">Milestone</th>
-      <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Points</th>
-      <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Activity</th>
-      <th className="px-4 py-2 border bg-blue-500 text-white py-2 px-4 rounded">Total</th>
+      <th className="px-4 py-2 border bg-blue-500 text-black py-2 px-4 rounded">Points</th>
+      <th className="px-4 py-2 border bg-blue-500 text-black py-2 px-4 rounded">Activity</th>
+      <th className="px-4 py-2 border bg-blue-500 text-black py-2 px-4 rounded">Total</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td className="border px-4 py-2">Qualifying prospects</td>
-      <td className="border px-4 py-2"></td>
-      <td className="border px-4 py-2"></td>
-      <td className="border px-4 py-2"></td>
-      <td className="border px-4 py-2"></td>
-    </tr>
-    <tr>
-      <td className="border px-4 py-2">Appoinment</td>
-      <td className="border px-4 py-2"></td>
-      <td className="border px-4 py-2"></td>
-      <td className="border px-4 py-2"></td>
-    </tr>
-    <tr>
-      <td className="border px-4 py-2">Financial need analysis with supervisor</td>
+      <td className="px-4 py-2 border bg-white-500 text-black py-2 px-4 rounded">Qualifying prospects</td>
+      <td className="border px-4 py-2">
+      <input
+              type="text"
+              value={inputValue}
+              onChange={handleInputChange}
+              className="block w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
+              />
+       </td>
+
       <td className="border px-4 py-2"></td>
       <td className="border px-4 py-2"></td>
       <td className="border px-4 py-2"></td>
     </tr>
     <tr>
-      <td className="border px-4 py-2">Regular quotation/Final presentation</td>
+      <td className="px-4 py-2 border bg-white-500 text-black py-2 px-4 rounded">Appointment</td>
       <td className="border px-4 py-2"></td>
       <td className="border px-4 py-2"></td>
       <td className="border px-4 py-2"></td>
     </tr>
     <tr>
-      <td className="border px-4 py-2">Closing with the supervisor</td>
+      <td className="px-4 py-2 border bg-white-500 text-black py-2 px-4 rounded">Financial need analysis with supervisor</td>
+      <td className="border px-4 py-2"></td>
+      <td className="border px-4 py-2"></td>
+      <td className="border px-4 py-2"></td>
+    </tr>
+    <tr>
+      <td className="px-4 py-2 border bg-white-500 text-black py-2 px-4 rounded">Regular quotation/Final presentation</td>
+      <td className="border px-4 py-2"></td>
+      <td className="border px-4 py-2"></td>
+      <td className="border px-4 py-2"></td>
+    </tr>
+    <tr>
+      <td className="px-4 py-2 border bg-white-500 text-black py-2 px-4 rounded">Closing with the supervisor</td>
       <td className="border px-4 py-2"></td>
       <td className="border px-4 py-2"></td>
       <td className="border px-4 py-2"></td>
@@ -102,3 +116,4 @@ function MilestoneSetup() {
 
 
 export default MilestoneSetup;
+

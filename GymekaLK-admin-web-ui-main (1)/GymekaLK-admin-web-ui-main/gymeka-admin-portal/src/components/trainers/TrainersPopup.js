@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 
-function TrainersPopup({ branch, onClose, onSave }) {
-  const [branchData, setBranchData] = useState({
-    id: branch ? branch.id : '',
-    code: branch ? branch.code : '',
-    trainername: branch ? branch.trainername : '',
-    mobile: branch ? branch.mobile : '',
-    email: branch ? branch.email : '',
-    nic: branch ? branch.nic : '',
-    zone: branch ? branch.zone : '',
-    region: branch ? branch.region : '',
-    branch: branch ? branch.branch : '',
-    channel: branch ? branch.channel : '',
+function TrainersPopup({ trainers, onClose, onSave }) {
+  const [trainersData, setTrainerData] = useState({
+    id: trainers ? trainers.id : '',
+    code: trainers ? trainers.code : '',
+    trainername: trainers ? trainers.trainername : '',
+    mobile: trainers ? trainers.mobile : '',
+    email: trainers ? trainers.email : '',
+    nic: trainers ? trainers.nic : '',
+    zone: trainers ? trainers.zone : '',
+    region: trainers ? trainers.region : '',
+    trainers: trainers ? trainers.trainers : '',
+    channel: trainers ? trainers.channel : '',
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setBranchData((prevState) => ({
+    setTrainerData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -24,14 +24,14 @@ function TrainersPopup({ branch, onClose, onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(branchData);
+    onSave(trainersData);
   };
 
 
   return (
     <div className="fixed top-0 left-0 flex items-center justify-center min-h-screen w-full bg-gray-800 bg-opacity-50">
       <div className="bg-white w-1/2 p-4 rounded-xl">
-        <h2 className="text-xl font-bold mb-4">{branch ? 'Update Branch' : 'Add Trainer'}</h2>
+        <h2 className="text-xl font-bold mb-4">{trainers ? 'Update Trainer' : 'Add Trainer'}</h2>
         <div className="h-96 overflow-y-auto"> {/* Set the desired height and apply overflow-y */}
           <form onSubmit={handleSubmit}>
             {/* Form fields */}
@@ -44,7 +44,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
               type="text"
               id="id"
               name="id"
-              value={branchData.id}
+              value={trainersData.id}
               onChange={handleChange}
             />
           </div>
@@ -57,7 +57,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
               type="text"
               id="code"
               name="code"
-              value={branchData.code}
+              value={trainersData.code}
               onChange={handleChange}
             />
           </div>
@@ -70,7 +70,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
               type="text"
               id="trainername"
               name="trainername"
-              value={branchData.trainername}
+              value={trainersData.trainername}
               onChange={handleChange}
             />
           </div>
@@ -83,7 +83,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
               type="text"
               id="mobile"
               name="mobile"
-              value={branchData.mobile}
+              value={trainersData.mobile}
               onChange={handleChange}
             />
           </div>
@@ -97,7 +97,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
               id="email"
               name="email"
               placeholder='example@gmail.com'
-              value={branchData.email}
+              value={trainersData.email}
               onChange={handleChange}
             />
              </div>
@@ -110,7 +110,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
               type="text"
               id="nic"
               name="nic"
-              value={branchData.nic}
+              value={trainersData.nic}
               onChange={handleChange}
             />
           </div>
@@ -123,7 +123,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
               type="text"
               id="zone"
               name="zone"
-              value={branchData.zone}
+              value={trainersData.zone}
               onChange={handleChange}
             />
           </div>
@@ -136,20 +136,20 @@ function TrainersPopup({ branch, onClose, onSave }) {
               type="text"
               id="region"
               name="region"
-              value={branchData.region}
+              value={trainersData.region}
               onChange={handleChange}
             />
           </div>
           <div className="mb-4">
-            <label className="block mb-1" htmlFor="branch">
-              Branch
+            <label className="block mb-1" htmlFor="trainers">
+              Trainer
             </label>
             <input
               className="border border-gray-400 px-2 py-1 w-full"
               type="text"
-              id="branch"
-              name="branch"
-              value={branchData.branch}
+              id="trainers"
+              name="trainers"
+              value={trainersData.trainers}
               onChange={handleChange}
             />
           </div>
@@ -162,7 +162,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
               type="text"
               id="channel"
               name="channel"
-              value={branchData.channel}
+              value={trainersData.channel}
               onChange={handleChange}
             />
           </div>
@@ -173,7 +173,7 @@ function TrainersPopup({ branch, onClose, onSave }) {
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-2 rounded"
             type="submit"
           >
-            {branch ? 'Update' : 'Add'}
+            {trainers ? 'Update' : 'Add'}
           </button>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

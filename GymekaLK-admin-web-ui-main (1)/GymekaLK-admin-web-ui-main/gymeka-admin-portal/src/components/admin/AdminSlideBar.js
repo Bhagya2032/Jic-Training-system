@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-//import Branches from './Branches';
-import ManagerControl from './ManagerControl';
+//import Candidates from './Candidates';
+import TrainerControl from './TrainerControl';
 import UserPackages from './UserPackages';
 import UserControl from './UserControl';
 import TrainersPage from '../trainers/TrainersPage';
@@ -16,7 +16,7 @@ import CandidatesPage from './CandidatesPage';
 import { FaUser, FaDumbbell, FaStoreAlt, FaUserCog, FaUserCircle, FaThList,FaRegStar,FaUserFriends,FaBlackTie} from 'react-icons/fa';
 
 function AdminSlideBar() {
-  const [currentPage, setCurrentPage] = useState('branches');
+  const [currentPage, setCurrentPage] = useState('candidates');
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -53,7 +53,7 @@ function AdminSlideBar() {
             className={`flex p-4 rounded-full items-center cursor-pointer text-white hover:bg-gray-700 ${
               currentPage === 'Training' ? 'bg-green-500 hover:bg-green-600' : ''
             }`}
-            onClick={() => handlePageChange('Trainings')}
+            onClick={() => handlePageChange('Training')}
           >
             <FaBlackTie className="mr-2" />
             Trainings
@@ -127,7 +127,7 @@ function AdminSlideBar() {
       <div className="flex-1 p-1">
         {currentPage === 'Candidates' && <CandidatesPage />}
         {currentPage === 'Trainers' && <TrainersPage />}
-        {currentPage === 'Trainings' && <TrainingPage />}
+        {currentPage === 'Training' && <TrainingPage />}
         {currentPage === 'Progress' && <ProgressPage />}
         {currentPage === 'milestonetracker' && <MilestoneTrackerPage />}
         {currentPage === 'feedback' && <FeedbackPage />}

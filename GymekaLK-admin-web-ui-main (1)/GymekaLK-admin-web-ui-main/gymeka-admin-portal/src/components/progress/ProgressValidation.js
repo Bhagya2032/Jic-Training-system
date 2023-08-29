@@ -5,48 +5,49 @@ import { FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
 //recat tostify
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ManageProgress from './ManageProgress';
 
 function ProgressValidationPage() {
-  const [branches, setBranches] = useState([]);
+  const [progress, setProgress] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [branchesPerPage] = useState(10);
+  const [progressPerPage] = useState(10);
   const [isPopupOpen, setPopupOpen] = useState(false);
-  const [selectedBranches, setSelectedBranches] = useState([]);
+  const [selectedProgress, setSelectedProgress] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    fetchBranches();
+    fetchProgress();
   }, []);
 
-  const fetchBranches = async () => {
+  const fetchProgress = async () => {
     try {
-      const response = await axios.get('http://localhost:8005/api/branches', {
+      const response = await axios.get('http://localhost:8005/api/progress', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setBranches(response.data.branches);
+      setProgress(response.data.progress);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleUpdate = (branch) => {
-    setSelectedBranches([branch]);
+  const handleUpdate = (progress) => {
+    setSelectedProgress([progress]);
     setPopupOpen(true);
   };
 
-  const handleDelete = async (branchId) => {
+  const handleDelete = async (progressId) => {
     try {
-      await axios.delete(`http://localhost:8005/api/branches/${branchId}`, {
+      await axios.delete(`http://localhost:8005/api/progress/${progressId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.success(`Candidate deleted successfully.`);
-      fetchBranches();
+      toast.success(`Progress deleted successfully.`);
+      fetchProgress();
     } catch (error) {
       console.log(error);
       toast.error('An error occurred. Please try again.');
@@ -55,27 +56,27 @@ function ProgressValidationPage() {
 
   const handleDeleteSelected = async () => {
     try {
-      const branchIds = selectedBranches.map((branch) => branch._id);
+      const progressIds = selectedProgress.map((progress) => progress._id);
 
-      await axios.delete('http://localhost:8005/api/branches/deleteAll', {
+      await axios.delete('http://localhost:8005/api/progress/deleteAll', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
         data: {
-          branchIds,
+          progressIds,
         },
       });
-      toast.success(`All Candidates deleted successfully.`);
-      fetchBranches();
-      setSelectedBranches([]);
+      toast.success(`All Progress deleted successfully.`);
+      fetchProgress();
+      setSelectedProgress([]);
     } catch (error) {
       console.log(error);
       toast.error('An error occurred. Please try again.');
     }
   };
 
-  const handleAddBranch = () => {
-    setSelectedBranches([]);
+  const handleAddProgress = () => {
+    setSelectedProgress([]);
     setPopupOpen(true);
   };
 
@@ -83,39 +84,39 @@ function ProgressValidationPage() {
     setPopupOpen(false);
   };
 
-  const handlePopupSave = async (branchData) => {
+  const handlePopupSave = async (progressData) => {
     try {
-      if (selectedBranches.length > 0) {
+      if (selectedProgress.length > 0) {
         await Promise.all(
-          selectedBranches.map(async (selectedBranch) => {
+          selectedProgress.map(async (selectedProgress) => {
             try {
               await axios.put(
-                `http://localhost:8005/api/branches/${selectedBranch._id}`,
-                branchData,
+                `http://localhost:8005/api/progress/${selectedProgress._id}`,
+                progressData,
                 {
                   headers: {
                     Authorization: `Bearer ${token}`,
                   },
                 }
               );
-              toast.success(`Candidate "${selectedBranch.branchCode}" updated successfully.`);
+              toast.success(`Progress "${selectedProgress.progressCode}" updated successfully.`);
             } catch (error) {
               console.log(error);
               toast.error(
-                `Failed to update candidate "${selectedBranch.branchCode}". Please try again.`
+                `Failed to update progress "${selectedProgress.progressCode}". Please try again.`
               );
             }
           })
         );
       } else {
-        await axios.post('http://localhost:8005/api/branches', branchData, {
+        await axios.post('http://localhost:8005/api/progress', progressData, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        toast.success(`Candidate "${branchData.branchCode}" added successfully.`);
+        toast.success(`Progress "${progressData.progressCode}" added successfully.`);
       }
-      fetchBranches();
+      fetchProgress();
       setPopupOpen(false);
     } catch (error) {
       console.log(error);
@@ -127,21 +128,21 @@ function ProgressValidationPage() {
     setSearchTerm(e.target.value);
   };
 
-  const handleSelectBranch = (branch) => {
-    if (selectedBranches.includes(branch)) {
-      setSelectedBranches(selectedBranches.filter((selectedBranch) => selectedBranch !== branch));
+  const handleSelectProgress = (progress) => {
+    if (selectedProgress.includes(progress)) {
+      setSelectedProgress(selectedProgress.filter((selectedProgress) => selectedProgress !== progress));
     } else {
-      setSelectedBranches([...selectedBranches, branch]);
+      setSelectedProgress([...selectedProgress, progress]);
     }
   };
 
-  const filteredBranches = branches.filter((branch) => {
-    return branch.branchCode.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredProgress = progress.filter((progress) => {
+    return progress.progressCode.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
-  const indexOfLastBranch = currentPage * branchesPerPage;
-  const indexOfFirstBranch = indexOfLastBranch - branchesPerPage;
-  const currentBranches = filteredBranches.slice(indexOfFirstBranch, indexOfLastBranch);
+  const indexOfLastProgress = currentPage * progressPerPage;
+  const indexOfFirstProgress = indexOfLastProgress - progressPerPage;
+  const currentProgress = filteredProgress.slice(indexOfFirstProgress, indexOfLastProgress);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -152,19 +153,19 @@ function ProgressValidationPage() {
           <Link To = "/ManageProgress">
           <button
             className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 m-2 rounded flex item center'
-            onClick={handleAddBranch}       >
+            onClick={handleAddProgress}       >
             <FaPlus className='mr-2' /> Manage
           </button>
           </Link>
         </div>
       </div>
 
-      {selectedBranches.length > 0 && (
+      {selectedProgress.length > 0 && (
         <button
           className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center'
           onClick={handleDeleteSelected}
         >
-          <FaTrash className='mr-2' /> Delete Selected Candidates
+          <FaTrash className='mr-2' /> Delete Selected Progress
         </button>
       )}
 
@@ -172,22 +173,22 @@ function ProgressValidationPage() {
         <input
           type='text'
           className='bg-gray-100 text-gray-500 py-2 px-4 rounded '
-          placeholder='Search by branch code...'
+          placeholder='Search by progress code...'
           value={searchTerm}
           onChange={handleSearch}
         />
       </div>
       
-      {filteredBranches.length === 0 && <div className='text-white mb-4'>No candidate found.</div>}
+      {filteredProgress.length === 0 && <div className='text-white mb-4'>No progress found.</div>}
 
-      {filteredBranches.length > 0 && (
+      {filteredProgress.length > 0 && (
         <table className='w-full ml-6 text-black '>
           <div class='h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
             <thead>
               <tr>
                 <th className='py-2 px-4'></th>
                 <th className='py-2 px-4'>Id</th>
-                <th className='py-2 px-4'>Candidate Name</th>
+                <th className='py-2 px-4'>Progress Name</th>
                 <th className='py-2 px-4'>Mobile</th>
                 <th className='py-2 px-4'>Email</th>
                 <th className='py-2 px-4'>NIC</th>
@@ -201,40 +202,40 @@ function ProgressValidationPage() {
             </thead>
 
             <tbody>
-              {currentBranches.map((branch) => (
+              {currentProgress.map((progress) => (
                 <tr
-                  key={branch._id}
+                  key={progress._id}
                   className={`hover:bg-gray-100 ${
-                    selectedBranches.includes(branch) ? 'bg-gray-100' : ''
+                    selectedProgress.includes(progress) ? 'bg-gray-100' : ''
                   }`}
                 >
                   <td className='py-2 px-4 border'>
                     <input
                       type='checkbox'
-                      checked={selectedBranches.includes(branch)}
-                      onChange={() => handleSelectBranch(branch)}
+                      checked={selectedProgress.includes(progress)}
+                      onChange={() => handleSelectProgress(progress)}
                     />
                   </td>
-                  <td className='py-2 px-4 border'>{branch.branchCode}</td>
-                  <td className='py-2 px-4 border'>{branch.location}</td>
-                  <td className='py-2 px-4 border'>{branch.openTime}</td>
-                  <td className='py-2 px-4 border'>{branch.closeTime}</td>
-                  <td className='py-2 px-4 border'>{branch.managerName}</td>
-                  {/* <td className='py-2 px-4 border'>{branch.status}</td>
-                  <td className='py-2 px-4 border'>{branch.avo}</td>
-                  <td className='py-2 px-4 border'>{branch.cds2}</td>
-                  <td className='py-2 px-4 border'>{branch.cds3}</td>
-                  <td className='py-2 px-4 border'>{branch.designation}</td> */}
+                  <td className='py-2 px-4 border'>{progress.progressCode}</td>
+                  <td className='py-2 px-4 border'>{progress.location}</td>
+                  <td className='py-2 px-4 border'>{progress.openTime}</td>
+                  <td className='py-2 px-4 border'>{progress.closeTime}</td>
+                  <td className='py-2 px-4 border'>{progress.managerName}</td>
+                  {/* <td className='py-2 px-4 border'>{progress.status}</td>
+                  <td className='py-2 px-4 border'>{progress.avo}</td>
+                  <td className='py-2 px-4 border'>{progress.cds2}</td>
+                  <td className='py-2 px-4 border'>{progress.cds3}</td>
+                  <td className='py-2 px-4 border'>{progress.designation}</td> */}
                   <td className='py-2 px-4 border'>
                     <button
                       className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2'
-                      onClick={() => handleUpdate(branch)}
+                      onClick={() => handleUpdate(progress)}
                     >
                       <FaEdit />
                     </button>
                     <button
                       className='bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded'
-                      onClick={() => handleDelete(branch._id)}
+                      onClick={() => handleDelete(progress._id)}
                     >
                       <FaTrash />
                     </button>
@@ -246,11 +247,11 @@ function ProgressValidationPage() {
         </table>
       )}
 
-      {filteredBranches.length > branchesPerPage && (
+      {filteredProgress.length > progressPerPage && (
         <div className='flex justify-center mt-4'>
           <nav>
             <ul className='flex items-center'>
-              {Array.from({ length: Math.ceil(filteredBranches.length / branchesPerPage) }).map(
+              {Array.from({ length: Math.ceil(filteredProgress.length / progressPerPage) }).map(
                 (_, index) => (
                   <li key={index}>
                     <button

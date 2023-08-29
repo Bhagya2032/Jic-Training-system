@@ -36,7 +36,7 @@ function BulkUpload({ onClose }) {
   };
 
 const handleDownload = () => {
-    const csvData = 'branchCode,location,openTime,closeTime,managerName';
+    const csvData = 'candidatesCode,location,openTime,closeTime,trainerName';
 
     const blob = new Blob([csvData], { type: 'text/csv' });
     const url = URL.createObjectURL(blob);

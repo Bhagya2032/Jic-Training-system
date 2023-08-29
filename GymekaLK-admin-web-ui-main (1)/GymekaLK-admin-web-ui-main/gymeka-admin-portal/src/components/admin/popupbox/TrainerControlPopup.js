@@ -2,56 +2,56 @@ import React, { useState, useEffect } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-function ManagerControlPopup({ initialManager, onClose, onSave }) {
-  const [managerData, setManagerData] = useState({
+function TrainerControlPopup({ initialTrainer, onClose, onSave }) {
+  const [trainerData, setTrainerData] = useState({
     username: '',
     email: '',
     password: '',
   });
 
   useEffect(() => {
-    if (initialManager) {
-      setManagerData({
-        username: initialManager.username,
-        email: initialManager.email,
+    if (initialTrainer) {
+      setTrainerData({
+        username: initialTrainer.username,
+        email: initialTrainer.email,
         password: '',
       });
     } else {
-      setManagerData({
+      setTrainerData({
         username: '',
         email: '',
         password: '',
       });
     }
-  }, [initialManager]);
+  }, [initialTrainer]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setManagerData((prevManagerData) => ({
-      ...prevManagerData,
+    setTrainerData((prevTrainerData) => ({
+      ...prevTrainerData,
       [name]: value,
     }));
   };
 
   const handleSave = () => {
-    if (!managerData.username || !managerData.email || !managerData.password) {
+    if (!trainerData.username || !trainerData.email || !trainerData.password) {
       toast.error('Please fill in all fields.');
       return;
     }
 
-    onSave(managerData);
+    onSave(trainerData);
   };
 
   return (
     <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-gray-800 bg-opacity-50">
       <div className="bg-white w-1/2 p-4 rounded-xl">
-        <h3 className="text-lg font-semibold mb-4">{initialManager ? 'Edit Manager' : 'Add Manager'}</h3>
+        <h3 className="text-lg font-semibold mb-4">{initialTrainer ? 'Edit Trainer' : 'Add Trainer'}</h3>
         <label className="block mb-2">
           Username:
           <input
             type="text"
             name="username"
-            value={managerData.username}
+            value={trainerData.username}
             onChange={handleInputChange}
             className="block w-full border border-gray-300 rounded-md p-2 mt-1"
           />
@@ -61,7 +61,7 @@ function ManagerControlPopup({ initialManager, onClose, onSave }) {
           <input
             type="email"
             name="email"
-            value={managerData.email}
+            value={trainerData.email}
             onChange={handleInputChange}
             className="block w-full border border-gray-300 rounded-md p-2 mt-1"
           />
@@ -71,7 +71,7 @@ function ManagerControlPopup({ initialManager, onClose, onSave }) {
           <input
             type="password"
             name="password"
-            value={managerData.password}
+            value={trainerData.password}
             onChange={handleInputChange}
             className="block w-full border border-gray-300 rounded-md p-2 mt-1"
           />
@@ -96,4 +96,4 @@ function ManagerControlPopup({ initialManager, onClose, onSave }) {
   );
 }
 
-export default ManagerControlPopup;
+export default TrainerControlPopup;

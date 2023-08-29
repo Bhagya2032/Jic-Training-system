@@ -10,25 +10,25 @@ import { useNavigate } from 'react-router-dom';
 function CreateTraining({ isOpen, onClose, onSave }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [branches, setBranches] = useState([]);
-  const [branchesPerPage] = useState(10);
+  const [trainings, setTrainings] = useState([]);
+  const [trainingsPerPage] = useState(10);
   const token = localStorage.getItem('token');
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedBranches, setSelectedBranches] = useState([]);
+  const [selectedTrainings, setSelectedTrainings] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchBranches();
+    fetchTrainings();
   }, []);
 
-  const fetchBranches = async () => {
+  const fetchTrainings = async () => {
     try {
-      const response = await axios.get('http://localhost:8005/api/branches', {
+      const response = await axios.get('http://localhost:8005/api/trainings', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      setBranches(response.data.branches);
+      setTrainings(response.data.trainings);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +43,7 @@ function CreateTraining({ isOpen, onClose, onSave }) {
   };
 
   const handleCreateTraining = () => {
-    setSelectedBranches([]);
+    setSelectedTrainings([]);
     setPopupOpen(true);
   };
 
@@ -51,21 +51,21 @@ function CreateTraining({ isOpen, onClose, onSave }) {
     setSearchTerm(e.target.value);
   };
 
-  const handleSelectBranch = (branch) => {
-    if (selectedBranches.includes(branch)) {
-      setSelectedBranches(selectedBranches.filter((selectedBranch) => selectedBranch !== branch));
+  const handleSelectTraining = (trainings) => {
+    if (selectedTrainings.includes(trainings)) {
+      setSelectedTrainings(selectedTrainings.filter((selectedTraining) => selectedTraining !== trainings));
     } else {
-      setSelectedBranches([...selectedBranches, branch]);
+      setSelectedTrainings([...selectedTrainings, trainings]);
     }
   };
 
-  const filteredBranches = branches.filter((branch) => {
-    return branch.branchCode.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredTrainings = trainings.filter((trainings) => {
+    return trainings.trainingsCode.toLowerCase().includes(searchTerm.toLowerCase());
   });
 
-  const indexOfLastBranch = currentPage * branchesPerPage;
-  const indexOfFirstBranch = indexOfLastBranch - branchesPerPage;
-  const currentBranches = filteredBranches.slice(indexOfFirstBranch, indexOfLastBranch);
+  const indexOfLastTraining = currentPage * trainingsPerPage;
+  const indexOfFirstTraining = indexOfLastTraining - trainingsPerPage;
+  const currentTrainings = filteredTrainings.slice(indexOfFirstTraining, indexOfLastTraining);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);  
 
@@ -237,22 +237,22 @@ function CreateTraining({ isOpen, onClose, onSave }) {
         <input
           type='text'
           className='bg-gray-100 text-gray-500 py-2 px-4 rounded '
-          placeholder='Search by branch code...'
+          placeholder='Search by trainings code...'
           value={searchTerm}
           onChange={handleSearch}
         />
       </div>
 
-      {filteredBranches.length === 0 && <div className='text-white mb-4'>No candidate found.</div>}
+      {filteredTrainings.length === 0 && <div className='text-white mb-4'>No training found.</div>}
 
-      {filteredBranches.length > 0 && (
+      {filteredTrainings.length > 0 && (
         <table className='w-full ml-6 text-black '>
           <div class='h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100'>
             <thead>
               <tr>
                 <th className='py-2 px-4'></th>
                 <th className='py-2 px-4'>Id</th>
-                <th className='py-2 px-4'>Candidate Name</th>
+                <th className='py-2 px-4'>Training Name</th>
                 <th className='py-2 px-4'>Mobile</th>
                 <th className='py-2 px-4'>Email</th>
                 <th className='py-2 px-4'>NIC</th>
@@ -260,24 +260,24 @@ function CreateTraining({ isOpen, onClose, onSave }) {
             </thead>
 
             <tbody>
-              {currentBranches.map((branch) => (
+              {currentTrainings.map((trainings) => (
                 <tr
-                  key={branch._id}
-                  className={`hover:bg-gray-100 ${selectedBranches.includes(branch) ? 'bg-gray-100' : ''
+                  key={trainings._id}
+                  className={`hover:bg-gray-100 ${selectedTrainings.includes(trainings) ? 'bg-gray-100' : ''
                     }`}
                 >
                   <td className='py-2 px-4 border'>
                     <input
                       type='checkbox'
-                      checked={selectedBranches.includes(branch)}
-                      onChange={() => handleSelectBranch(branch)}
+                      checked={selectedTrainings.includes(trainings)}
+                      onChange={() => handleSelectTraining(trainings)}
                     />
                   </td>
-                  <td className='py-2 px-4 border'>{branch.branchCode}</td>
-                  <td className='py-2 px-4 border'>{branch.location}</td>
-                  <td className='py-2 px-4 border'>{branch.openTime}</td>
-                  <td className='py-2 px-4 border'>{branch.closeTime}</td>
-                  <td className='py-2 px-4 border'>{branch.managerName}</td>
+                  <td className='py-2 px-4 border'>{trainings.trainingsCode}</td>
+                  <td className='py-2 px-4 border'>{trainings.location}</td>
+                  <td className='py-2 px-4 border'>{trainings.openTime}</td>
+                  <td className='py-2 px-4 border'>{trainings.closeTime}</td>
+                  <td className='py-2 px-4 border'>{trainings.managerName}</td>
                 </tr>
               ))}
             </tbody>
@@ -285,11 +285,11 @@ function CreateTraining({ isOpen, onClose, onSave }) {
         </table>
       )}
 
-      {filteredBranches.length > branchesPerPage && (
+      {filteredTrainings.length > trainingsPerPage && (
         <div className='flex justify-center mt-4'>
           <nav>
             <ul className='flex items-center'>
-              {Array.from({ length: Math.ceil(filteredBranches.length / branchesPerPage) }).map(
+              {Array.from({ length: Math.ceil(filteredTrainings.length / trainingsPerPage) }).map(
                 (_, index) => (
                   <li key={index}>
                     <button

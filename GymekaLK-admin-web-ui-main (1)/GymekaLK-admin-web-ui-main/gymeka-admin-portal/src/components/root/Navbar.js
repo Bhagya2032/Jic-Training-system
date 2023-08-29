@@ -12,8 +12,8 @@ const Navbar = () => {
         try {
             if (role === 'admin') {
                 await axios.post('http://localhost:8005/api/admin/logout');
-            } else if (role === 'manager') {
-                await axios.post('http://localhost:8005/api/manager/logout');
+            } else if (role === 'trainer') {
+                await axios.post('http://localhost:8005/api/trainer/logout');
             }
 
             localStorage.removeItem('role');
@@ -46,9 +46,9 @@ const Navbar = () => {
                                         Admin Panel
                                     </Link>
                                 )}
-                                {role === 'manager' && (
-                                    <Link to='/manager-panel' className='text-white hover:text-emerald-300 px-3 py-2 rounded-md text-sm font-semibold'>
-                                        Manager Panel
+                                {role === 'trainer' && (
+                                    <Link to='/trainer-panel' className='text-white hover:text-emerald-300 px-3 py-2 rounded-md text-sm font-semibold'>
+                                        Trainer Panel
                                     </Link>
                                 )}
                                 <button
